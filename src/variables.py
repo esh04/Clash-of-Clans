@@ -1,0 +1,6 @@
+M = 200
+N = 56
+STARTX = N//2
+STARTY = M//2
+SCREEN = 50
+INPUT_CHAR = ''
