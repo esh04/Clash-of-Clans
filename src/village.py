@@ -4,7 +4,7 @@ from pymysql import NULL
 from streamlit import set_option
 from .variables import N, M
 from .buildings import TownHall, Huts, Cannon, Wall
-from .barbarian import Spawning
+from .spawning import Spawning
 
 
 class Village:
@@ -36,10 +36,13 @@ class Village:
             ((M//2) - (M//8)), N//4 + 5, 10, 1), Wall(((M//2) + (M//8)), N//4 + 5, 10, 1), Wall(M//2, N//2 + 5, 10, 1)]
         return
 
+    def get_spawning(self):
+        return self._spawning
+
     def get_matrix(self):
         return self._matrix
 
-    def shoot_cannons():
+    def shoot_cannons(self):
         return
 
     def print_village(self):

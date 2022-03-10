@@ -2,8 +2,7 @@
 # movement, attack, damage, health, speed, dead
 
 from pymysql import NULL
-
-from .barbarian import Spawning
+from .spawning import Spawning
 from .validation import isvalid
 
 
@@ -30,6 +29,12 @@ class Person():
     def sety(self, y):
         self._y_cood = y
 
+    def setspeed(self, speed):
+        self._speed = speed
+
+    def getspeed(self):
+        return self._speed
+
     # move the person
     # x,y can be +1,-1,0
 
@@ -38,13 +43,13 @@ class Person():
         if isvalid(self._x_cood + x, self._y_cood + y):
             if not village.get_matrix()[self._x_cood + x][self._y_cood + y]:
                 village.delete_people(self)
-                self._x_cood += x
-                self._y_cood += y
+                self._x_cood += (x*self._speed)
+                self._y_cood += (y*self._speed)
                 return 1
             elif isinstance(village.get_matrix()[self._x_cood + x][self._y_cood + y], Spawning):
                 village.delete_people(self)
-                self._x_cood += x
-                self._y_cood += y
+                self._x_cood += (x*self._speed)
+                self._y_cood += (y*self._speed)
             return 1
         return 0
 

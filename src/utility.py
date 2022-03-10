@@ -1,6 +1,4 @@
 from .game_over import game_over
-from .king import *
-from .village import *
 from .input import *
 import signal
 
@@ -25,35 +23,37 @@ def movement(game):
         return ''
     INPUT_CHAR = user_input()
     char = INPUT_CHAR
+    king = game.get_attackers().get_king()
     if char:
         # move king up
         if char == 'd':
-            if(game.get_king().movement(0, 1, game.get_village())):
+            if(king.movement(0, 1, game.get_village())):
                 return 1
         # move king left
         elif char == 'w':
-            if(game.get_king().movement(-1, 0, game.get_village())):
+            if(king.movement(-1, 0, game.get_village())):
                 return 1
         # move king down
         elif char == 'a':
-            if(game.get_king().movement(0, -1, game.get_village())):
+            if(king.movement(0, -1, game.get_village())):
                 return 1
         # move king right
         elif char == 's':
-            if(game.get_king().movement(1, 0,  game.get_village())):
+            if(king.movement(1, 0,  game.get_village())):
                 return 1
         # attack
         elif char == ' ':
-            game.get_king().attack(game.get_village())
+            king.attack(game.get_village())
             return 1
-        # spawning point 1
-        elif char == 'z':
-            return 1
-        # spawning point 2
-        elif char == 'x':
-            return 1
-        # spawning point 3
-        elif char == 'c':
+        # spawning points
+        elif char == '1' or char == '2' or char == "3" or char == "4":
+            spawning_point = game.get_village().get_spawning()[int(char) - 1]
+            x = game.get_attackers().barb_coord(
+                spawning_point.getx(), spawning_point.get_xdim())
+            y = game.get_attackers().barb_coord(
+                spawning_point.gety(), spawning_point.get_ydim())
+            game.get_attackers().set_barbarians(y, x)
+            # print(x, y)
             return 1
         # quit
         elif char == 'q':
