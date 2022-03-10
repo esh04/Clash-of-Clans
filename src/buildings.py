@@ -92,19 +92,21 @@ class Huts(Building):
 
 class Wall(Building):
 
-    def __init__(self, x_cood, y_cood, xdim, ydim):
+    def __init__(self, x_cood, y_cood):
         health = 50
         body = "W"
-        Building.__init__(self, x_cood, y_cood, health, xdim, ydim, body)
+        Building.__init__(self, x_cood, y_cood, health, 1, 1, body)
 
 
 class Cannon(Building):
 
     def __init__(self, x_cood, y_cood):
         self._damage = 120
-        self._range = 10
+        self._range = 6
         health = 50
         body = "C"
         xdim = 1
         ydim = 1
         Building.__init__(self, x_cood, y_cood, health, xdim, ydim, body)
+
+    # def shoot(self):

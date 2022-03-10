@@ -13,6 +13,7 @@ class Person():
         self._x_cood = x_cood
         self._y_cood = y_cood
         self._dead = False
+        self._max_health = health
         self._health = health
         self._speed = speed
         self._attack = damage
@@ -35,22 +36,26 @@ class Person():
     def getspeed(self):
         return self._speed
 
+    def get_health_percentage(self):
+        return (self._health/self._max_health) * 100
+
     # move the person
     # x,y can be +1,-1,0
 
     def movement(self, x, y, village):
-        # print(self._x_cood + x, self._y_cood + y)
-        if isvalid(self._x_cood + x, self._y_cood + y):
-            if not village.get_matrix()[self._x_cood + x][self._y_cood + y]:
-                village.delete_people(self)
-                self._x_cood += (x*self._speed)
-                self._y_cood += (y*self._speed)
-                return 1
-            elif isinstance(village.get_matrix()[self._x_cood + x][self._y_cood + y], Spawning):
-                village.delete_people(self)
-                self._x_cood += (x*self._speed)
-                self._y_cood += (y*self._speed)
-            return 1
+        for i in range(0, self._speed):
+
+            if isvalid(self._x_cood + x, self._y_cood + y):
+                if not village.get_matrix()[self._x_cood + x][self._y_cood + y]:
+                    village.delete_people(self)
+                    self._x_cood += (x)
+                    self._y_cood += (y)
+                    return 1
+                elif isinstance(village.get_matrix()[self._x_cood + x][self._y_cood + y], Spawning):
+                    village.delete_people(self)
+                    self._x_cood += (x)
+                    self._y_cood += (y)
+                    return 1
         return 0
 
     def attack(self, village):

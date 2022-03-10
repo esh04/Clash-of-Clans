@@ -57,5 +57,13 @@ def movement(game):
             return 1
         # quit
         elif char == 'q':
-            game_over()
+            game_over(game)
+
+    # if barbarians are present then move them automatically
+#     new_time = time.time() - start_time
+# if(new_time % 1 == 0):
+#     print(new_time)
+
+    # check if person is in cannon range, if yes then shoot
+
     return 0

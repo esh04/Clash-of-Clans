@@ -29,11 +29,20 @@ class Village:
         # cannons
         self._cannons = [Cannon(((M//2) - (M//8)), N//2 - N//10),
                          Cannon(((M//2) + (M//8)), N//2 - N//10)]
-
+        self._walls = []
         # create walls
-        self._walls = [Wall(M//2, N//3, 10, 1), Wall(M//2 - 7, N//4, 1, 8), Wall(M//2 + 7, N//4, 1, 8), Wall(((M//2) - (M//8)),
-                                                                                                             N // 2, 10, 1), Wall(((M//2) + (M//8)), N//2, 10, 1), Wall(M//2, (N//2) - (N//3), 10, 1), Wall((3*M)//4, N//6 + 5, 10, 1), Wall(M//4, N//6 + 5, 10, 1), Wall(
-            ((M//2) - (M//8)), N//4 + 5, 10, 1), Wall(((M//2) + (M//8)), N//4 + 5, 10, 1), Wall(M//2, N//2 + 5, 10, 1)]
+        for i in range(6):
+            self._walls.extend([Wall(M//2 + i+1, N//3), Wall(((M//2) - (M//8) + i+1), N // 2), Wall(((M//2) + (M//8) + i+1), N//2), Wall(M//2 + i+1, (N//2) - (N//3)), Wall(
+                (3*M)//4 + i+1, N//6 + 5), Wall(M//4 + i+1, N//6 + 5), Wall(((M//2) - (M//8) + i+1), N//4 + 5), Wall(((M//2) + (M//8) + i+1), N//4 + 5), Wall(M//2 + i+1, N//2 + 5)])
+            self._walls.extend([Wall(M//2 - i, N//3), Wall(((M//2) - (M//8) - i), N // 2), Wall(((M//2) + (M//8) - i), N//2), Wall(M//2 - i, (N//2) - (N//3)), Wall(
+                (3*M)//4 - i, N//6 + 5), Wall(M//4 - i, N//6 + 5), Wall(((M//2) - (M//8) - i), N//4 + 5), Wall(((M//2) + (M//8) - i), N//4 + 5), Wall(M//2 - i, N//2 + 5)])
+
+        for i in range(4):
+            self._walls.extend(
+                [Wall(M//2 - 7, N//4 + i), Wall(M//2 + 7, N//4 + i)])
+            self._walls.extend(
+                [Wall(M//2 - 7, N//4 - i - 1), Wall(M//2 + 7, N//4 - i - 1)])
+
         return
 
     def get_spawning(self):
@@ -42,15 +51,13 @@ class Village:
     def get_matrix(self):
         return self._matrix
 
-    def shoot_cannons(self):
-        return
-
     def print_village(self):
         '''Print the village'''
         for row in range(self._rows):
             for col in range(self._cols):
                 # print(type(self._matrix[row, col]), end="")
-                if(self._matrix[row, col]):
+                if (self._matrix[row, col]):
+                    # if(self._matrix[row, col] and self._matrix[row, col].get_display()):
                     print(self._matrix[row, col].get_object(), end="")
                 else:
                     print(' ', end="")

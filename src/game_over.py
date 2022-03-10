@@ -1,10 +1,11 @@
 from colorama import init, Fore, Back, Style
 import os
 from . import variables as v
+import pickle
 init()
 
 
-def game_over():
+def game_over(game):
     os.system('tput reset')
     print(Fore.LIGHTMAGENTA_EX + Style.BRIGHT +
           "                                                     ".center(v.SCREEN))
@@ -26,4 +27,7 @@ def game_over():
           "                                                     ".center(v.SCREEN)+Style.RESET_ALL)
     print(Fore.LIGHTMAGENTA_EX + Style.BRIGHT +
           "                                                     ".center(v.SCREEN)+Style.RESET_ALL)
+#     store replay pickle file
+    with open('./replays/%s.pkl' % str(game.get_starttime()), 'wb') as f:
+        pickle.dump(game.get_replay(), f)
     quit()
