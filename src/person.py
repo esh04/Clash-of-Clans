@@ -55,20 +55,20 @@ class Person():
     # x,y can be +1,-1,0
 
     def movement(self, x, y, village):
+        move = False
         for i in range(0, self._speed):
-
             if isvalid(self._x_cood + x, self._y_cood + y):
                 if not village.get_matrix()[self._x_cood + x][self._y_cood + y]:
                     village.delete_people(self)
                     self._x_cood += (x)
                     self._y_cood += (y)
-                    return 1
+                    move = True
                 elif isinstance(village.get_matrix()[self._x_cood + x][self._y_cood + y], Spawning):
                     village.delete_people(self)
                     self._x_cood += (x)
                     self._y_cood += (y)
-                    return 1
-        return 0
+                    move = True
+        return move
 
     def attack(self, village):
         if isvalid(self._x_cood - 1, self._y_cood):
