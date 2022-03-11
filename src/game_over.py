@@ -28,7 +28,4 @@ def game_over(game):
           "                                                     ".center(v.SCREEN)+Style.RESET_ALL)
     print(Fore.LIGHTMAGENTA_EX + Style.BRIGHT +
           "                                                     ".center(v.SCREEN)+Style.RESET_ALL)
-    #     store replay pickle file
-    with open('./replays/%s.pkl' % str(game.get_starttime()), 'wb') as f:
-        pickle.dump(game.get_replay(), f)
     quit()

@@ -3,6 +3,7 @@ from . import variables as v
 from .attackers import Attackers
 import copy
 import os
+import pickle
 
 
 class Game:
@@ -14,8 +15,7 @@ class Game:
         # intialise game over
         self._game_over = False
         self._starttime = time
-
-        self._replay = []
+        self._scenenum = 0
         return
 
     def get_replay(self):
@@ -39,7 +39,14 @@ class Game:
     def game_screen_print(self):
         os.system('clear')
         self._village.print_village()
-        # scene = copy.deepcopy(self)
+        scene = copy.deepcopy(self)
+        if self._scenenum == 0:
+            os.mkdir('./replays/{}'.format(str(self._starttime)))
+
+        with open('./replays/{}/{}.pkl'.format(self._starttime, self._scenenum), 'wb') as f:
+            pickle.dump(scene, f)
+            self._scenenum += 1
+
         # self._replay.append(scene)
         print(self._attackers.get_king().health_bar() + ' ' +
               str(self._attackers.get_king().get_health())+'/' + str(self._attackers.get_king().getmaxhealth()))
