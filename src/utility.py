@@ -1,3 +1,4 @@
+from numpy import False_
 from .game_over import game_over
 from .input import *
 import signal
@@ -70,7 +71,16 @@ def movement(game):
     return 0
 
 
+def barb_move(game):
+    barbarians = game.get_attackers().get_barbarians()
+    move = False_
+    for barb in barbarians:
+        if not barb.is_dead():
+            barb.auto_move(game)
+            move = True
+    return move
 # check if person is in cannon range, if yes then shoot
+
 
 def cannon_shoot(game):
     shoot = False
@@ -78,14 +88,3 @@ def cannon_shoot(game):
         # bool to check if shot is fired
         shoot = shoot or cannon.shoot(game)
     return shoot
-
-
-def check_cannon(game):
-    new_time = time.time() - game.get_starttime()
-    if(new_time % 1 == 0):
-        game.get_village().update_village()
-        game.get_village().update_people(game.get_attackers().get_king())
-        for barb in game.get_attackers().get_barbarians():
-            game.get_village().update_people(barb)
-        if (cannon_shoot(game)):
-            return 1

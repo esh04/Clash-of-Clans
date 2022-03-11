@@ -113,3 +113,10 @@ class Village:
             if cannon.get_display():
                 return False
         return True
+
+    def get_all(self):
+        buildings = []
+        buildings.extend(self._huts)
+        buildings.append(self._townhall)
+        buildings.extend(self._cannons)
+        return buildings
