@@ -1,6 +1,7 @@
 from .game_over import game_over
 from .input import *
 import signal
+import time
 
 
 def movement(game):
@@ -58,12 +59,25 @@ def movement(game):
         # quit
         elif char == 'q':
             game_over(game)
-
-    # if barbarians are present then move them automatically
-#     new_time = time.time() - start_time
-# if(new_time % 1 == 0):
-#     print(new_time)
-
-    # check if person is in cannon range, if yes then shoot
-
     return 0
+
+
+# check if person is in cannon range, if yes then shoot
+
+def cannon_shoot(game):
+    shoot = False
+    for cannon in game.get_village().get_cannons():
+        # bool to check if shot is fired
+        shoot = shoot or cannon.shoot(game)
+    return shoot
+
+
+def check_cannon(game):
+    new_time = time.time() - game.get_starttime()
+    if(new_time % 1 == 0):
+        game.get_village().update_village()
+        game.get_village().update_people(game.get_attackers().get_king())
+        for barb in game.get_attackers().get_barbarians():
+            game.get_village().update_people(barb)
+        if (cannon_shoot(game)):
+            return 1

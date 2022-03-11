@@ -1,6 +1,6 @@
 import os
 import time
-from src.utility import movement
+from src.utility import cannon_shoot, check_cannon, movement
 from src.input import Get, AlarmException, input_to
 from src.game import Game
 
@@ -9,10 +9,13 @@ from src.game import Game
 start_time = time.time()
 
 game = Game(start_time)
+game.game_update()
 game.game_screen_print()
 
-while True:
+while (not game.check_end()):
     if movement(game):
-        # print(game.get_king().getx(), game.get_king().gety())
         os.system('clear')
+        game.game_update()
         game.game_screen_print()
+        cannon_shoot(game)
+    # check_cannon(game)

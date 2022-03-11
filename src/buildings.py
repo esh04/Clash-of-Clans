@@ -1,3 +1,4 @@
+from .person import Person
 from colorama import init, Fore, Back, Style
 import numpy as np
 init()
@@ -101,7 +102,7 @@ class Wall(Building):
 class Cannon(Building):
 
     def __init__(self, x_cood, y_cood):
-        self._damage = 120
+        self._damage = 2
         self._range = 6
         health = 50
         body = "C"
@@ -109,4 +110,17 @@ class Cannon(Building):
         ydim = 1
         Building.__init__(self, x_cood, y_cood, health, xdim, ydim, body)
 
-    # def shoot(self):
+    def shoot(self, game):
+        for i in range(-self._range, self._range + 1):
+            for j in range(-self._range, self._range + 1):
+                matrix = game.get_village().get_matrix()
+                # king = game.get_attackers().get_king()
+                # print(self._y + i, self._x + j, king.getx(),
+                #       king.gety(), matrix[self._y + i][self._x + j])
+
+                if isinstance(matrix[self._y + i][self._x + j], Person):
+                    matrix[
+                        self._y + i][self._x + j].attacked(self._damage)
+                    return True
+
+        return False

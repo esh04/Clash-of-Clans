@@ -1,7 +1,4 @@
 import numpy as np
-from numpy import empty
-from pymysql import NULL
-from streamlit import set_option
 from .variables import N, M
 from .buildings import TownHall, Huts, Cannon, Wall
 from .spawning import Spawning
@@ -51,6 +48,9 @@ class Village:
     def get_matrix(self):
         return self._matrix
 
+    def get_cannons(self):
+        return self._cannons
+
     def print_village(self):
         '''Print the village'''
         for row in range(self._rows):
@@ -88,7 +88,10 @@ class Village:
         return
 
     def update_people(self, person):
-        self._matrix[person.getx(), person.gety()] = person
+        if person.is_dead():
+            self.delete_people(person)
+        else:
+            self._matrix[person.getx(), person.gety()] = person
         return
 
     def delete_people(self, person):
@@ -99,3 +102,14 @@ class Village:
         self._matrix[building.gety() - (building.get_ydim()//2): building.gety() + (building.get_ydim()//2) + 1, building.getx() - (
             building.get_xdim()//2): building.getx() + (building.get_xdim()//2) + 1] = np.empty((), dtype=object)
         return
+
+    def all_dead(self):
+        for hut in self._huts:
+            if hut.get_display():
+                return False
+        if self._townhall.get_display():
+            return False
+        for cannon in self._cannons:
+            if cannon.get_display():
+                return False
+        return True

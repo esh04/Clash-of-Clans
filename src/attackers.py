@@ -26,3 +26,11 @@ class Attackers():
     def barb_coord(self, coord, dim):
         return random.randint(coord - (dim//2),
                               coord + (dim//2))
+
+    def all_dead(self):
+        for barb in self._barbarians:
+            if not barb.is_dead():
+                return False
+        if not self._king.is_dead():
+            return False
+        return True

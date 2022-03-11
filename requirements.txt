@@ -2,3 +2,4 @@ python3
 numpy
 colorama
 getch
+playsound
