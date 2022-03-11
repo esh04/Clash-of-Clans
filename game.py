@@ -1,7 +1,6 @@
 import os
 import time
 from src.utility import barb_move, cannon_shoot, movement
-from src.input import Get, AlarmException, input_to
 from src.game import Game
 
 
@@ -13,13 +12,16 @@ game.game_update()
 game.game_screen_print()
 
 while (not game.check_end()):
+    print = False
     if movement(game):
-        os.system('clear')
+        print = True
+
+    if(time.time() - board_time > 2):
+        board_time = time.time()
+        if barb_move(game):
+            print = True
+        if cannon_shoot(game):
+            print = True
+    if print:
         game.game_update()
         game.game_screen_print()
-    if(time.time() - board_time > 0.8):
-        board_time = time.time()
-        if barb_move(game) or cannon_shoot(game):
-            os.system('clear')
-            game.game_update()
-            game.game_screen_print()

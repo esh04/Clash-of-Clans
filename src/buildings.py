@@ -114,12 +114,11 @@ class Cannon(Building):
             for j in range(-self._range, self._range + 1):
                 matrix = game.get_village().get_matrix()
                 # king = game.get_attackers().get_king()
-                # print(self._y + i, self._x + j, king.getx(),
-                #       king.gety(), matrix[self._y + i][self._x + j])
-
                 if isinstance(matrix[self._y + i][self._x + j], Person):
                     matrix[
                         self._y + i][self._x + j].attacked(self._damage)
+                    self._object_char = 'C+'
                     return True
 
+        self._object_char = 'C'
         return False

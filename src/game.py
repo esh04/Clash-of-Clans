@@ -37,6 +37,7 @@ class Game:
             self._village.update_people(barb)
 
     def game_screen_print(self):
+        os.system('clear')
         self._village.print_village()
         # scene = copy.deepcopy(self)
         # self._replay.append(scene)

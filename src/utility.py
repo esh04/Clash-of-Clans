@@ -79,7 +79,6 @@ def barb_move(game):
             barb.auto_move(game)
             move = True
     return move
-# check if person is in cannon range, if yes then shoot
 
 
 def cannon_shoot(game):
