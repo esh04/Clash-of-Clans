@@ -51,7 +51,6 @@ class Building():
         if self.get_health_percentage() <= 0:
             self._display = False
             return ' '
-
         if self.get_health_percentage() > 50:
             return Fore.GREEN + self._object_char + Fore.RESET
         elif self.get_health_percentage() > 25:
@@ -102,7 +101,7 @@ class Wall(Building):
 class Cannon(Building):
 
     def __init__(self, x_cood, y_cood):
-        self._damage = 2
+        self._damage = 20
         self._range = 6
         health = 50
         body = "C"

@@ -40,7 +40,8 @@ class Game:
         self._village.print_village()
         # scene = copy.deepcopy(self)
         # self._replay.append(scene)
-        print(self._attackers.get_king().health_bar())
+        print(self._attackers.get_king().health_bar() + ' ' +
+              str(self._attackers.get_king().get_health())+'/' + str(self._attackers.get_king().getmaxhealth()))
         print("Press R for Rage Spell")
         print("Press H for Heal Spell")
         print("Press Q to quit")

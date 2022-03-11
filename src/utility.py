@@ -2,6 +2,7 @@ from .game_over import game_over
 from .input import *
 import signal
 import time
+from .spells import heal, rage
 
 
 def movement(game):
@@ -59,6 +60,13 @@ def movement(game):
         # quit
         elif char == 'q':
             game_over(game)
+        elif char == 'h':
+            heal(game)
+            return 1
+        elif char == 'r':
+            rage(game)
+            return 1
+
     return 0
 
 

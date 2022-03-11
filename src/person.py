@@ -33,8 +33,20 @@ class Person():
     def setspeed(self, speed):
         self._speed = speed
 
+    def setattack(self, attack):
+        self._attack = attack
+
+    def getattack(self):
+        return self._attack
+
+    def sethealth(self, health):
+        self._health = health
+
     def getspeed(self):
         return self._speed
+
+    def getmaxhealth(self):
+        return self._max_health
 
     def get_health_percentage(self):
         return (self._health/self._max_health) * 100
