@@ -7,16 +7,21 @@ import pickle
 
 
 class Game:
-    def __init__(self, time):
+    def __init__(self, time, queen, level):
         # intialise village
         self._village = Village(v.N, v.M)
         # initalse attackers
-        self._attackers = Attackers()
+        self._attackers = Attackers(queen)
         # intialise game over
         self._game_over = False
         self._starttime = time
         self._scenenum = 0
+        self._useQueen = queen
+        self._level = level
         return
+
+    def isQueen(self):
+        return self._useQueen
 
     def get_replay(self):
         return self._replay
@@ -32,7 +37,11 @@ class Game:
 
     def game_update(self):
         self._village.update_village()
-        self._village.update_people(self._attackers.get_king())
+        if self._useQueen:
+            self._village.update_people(self._attackers.get_queen())
+        else:
+            self._village.update_people(self._attackers.get_king())
+
         for barb in self._attackers.get_barbarians():
             self._village.update_people(barb)
         for archer in self._attackers.get_archers():
@@ -52,8 +61,12 @@ class Game:
             self._scenenum += 1
 
         # self._replay.append(scene)
-        print(self._attackers.get_king().health_bar() + ' ' +
-              str(self._attackers.get_king().get_health())+'/' + str(self._attackers.get_king().getmaxhealth()))
+        if self._useQueen:
+            print(self._attackers.get_queen().health_bar() + ' ' +
+                  str(self._attackers.get_queen().get_health())+'/' + str(self._attackers.get_queen().getmaxhealth()))
+        else:
+            print(self._attackers.get_king().health_bar() + ' ' +
+                  str(self._attackers.get_king().get_health())+'/' + str(self._attackers.get_king().getmaxhealth()))
         print("Press R for Rage Spell, H for Heal Spell, Press Q to quit")
         print("Barbarians: " + str(len(self._attackers.get_barbarians())))
         print("Archers: " + str(len(self._attackers.get_archers())))

@@ -7,8 +7,7 @@ from .spells import heal, rage
 from . import variables as v
 
 
-def movement(game):
-    # moves the player
+def input():
     def alarmhandler(signum, frame):
         # ''' input method '''
         raise AlarmException
@@ -25,9 +24,17 @@ def movement(game):
             pass
         signal.signal(signal.SIGALRM, signal.SIG_IGN)
         return ''
-    INPUT_CHAR = user_input()
-    char = INPUT_CHAR
-    king = game.get_attackers().get_king()
+    return user_input()
+
+
+def movement(game):
+    # moves the player
+
+    char = input()
+    if game.isQueen():
+        king = game.get_attackers().get_queen()
+    else:
+        king = game.get_attackers().get_king()
     if char:
         # move king up
         if char == 'd':

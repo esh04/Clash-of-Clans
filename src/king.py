@@ -24,8 +24,8 @@ class King(Person):
 
 class ArcherQueen(Person):
     def __init__(self, x_cood, y_cood):
-        damage = 5
-        health = 100
+        damage = 8
+        health = 200
         speed = 2
         self._body = Fore.YELLOW + 'Q' + Fore.RESET
         Person.__init__(self, x_cood, y_cood, damage, health, speed)

@@ -11,20 +11,54 @@ def heal_person(person):
 
 
 def heal(game):
-    king = game.get_attackers().get_king()
+    if game.isQueen():
+        queen = game.get_attackers().get_queen()
+        if not queen.is_dead():
+            heal_person(queen)
+    else:
+        king = game.get_attackers().get_king()
+        if not king.is_dead():
+            heal_person(king)
+
     barbarian = game.get_attackers().get_barbarians()
-    if not king.is_dead():
-        heal_person(king)
+    archers = game.get_attackers().get_archers()
+    balloons = game.get_attackers().get_balloons()
+
     for barb in barbarian:
         if not barb.is_dead():
             heal_person(barb)
 
+    for archer in archers:
+        if not archer.is_dead():
+            heal_person(archer)
+
+    for balloon in balloons:
+        if not balloon.is_dead():
+            heal_person(balloon)
+
 
 def rage(game):
-    king = game.get_attackers().get_king()
+    if game.isQueen():
+        queen = game.get_attackers().get_queen()
+        if not queen.is_dead():
+            rage_person(queen)
+    else:
+        king = game.get_attackers().get_king()
+        if not king.is_dead():
+            rage_person(king)
+
     barbarian = game.get_attackers().get_barbarians()
-    if not king.is_dead():
-        rage_person(king)
+    archers = game.get_attackers().get_archers()
+    balloons = game.get_attackers().get_balloons()
+
     for barb in barbarian:
         if not barb.is_dead():
             rage_person(barb)
+
+    for archer in archers:
+        if not archer.is_dead():
+            rage_person(archer)
+
+    for balloon in balloons:
+        if not balloon.is_dead():
+            rage_person(balloon)

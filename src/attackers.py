@@ -1,13 +1,19 @@
 from .barbarian import Archer, Balloon, Barbarian
-from .king import King
+from .king import ArcherQueen, King
 from . import variables as v
 import random
 
 
 class Attackers():
-    def __init__(self):
-        # intialise king
-        self._king = King((v.N)-2, 2)
+    def __init__(self, queen):
+        # intialise attacker
+        if queen:
+            self._queen = ArcherQueen((v.N)-2, 2)
+            self._king = None
+        else:
+            self._king = King((v.N)-2, 2)
+            self._queen = None
+
         # intialise barbarians
         self._barbarians = []
         self._balloons = []
@@ -16,6 +22,9 @@ class Attackers():
 
     def get_king(self):
         return self._king
+
+    def get_queen(self):
+        return self._queen
 
     def get_barbarians(self):
         return self._barbarians
@@ -55,6 +64,10 @@ class Attackers():
         for balloon in self._balloons:
             if not balloon.is_dead():
                 return False
-        if not self._king.is_dead():
-            return False
+        if self._king:
+            if not self._king.is_dead():
+                return False
+        elif self._queen:
+            if not self._queen.is_dead():
+                return False
         return True
