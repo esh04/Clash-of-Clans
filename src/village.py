@@ -13,8 +13,9 @@ class Village:
             (self._rows, self._cols), dtype=object)
 
         # create spawning points
-        self._spawning = [Spawning(M//2, 50, 1), Spawning(
-            M//4, 40, 2), Spawning((3*M)//4, 40, 3)]
+        self._spawning = [Spawning(M//2 + M//10, 50, 1), Spawning(
+            M//4, 40, 2), Spawning((3*M)//4, 40, 3), Spawning(M//2, 40, 4), Spawning(M//10, 50, 5), Spawning((9*M)//10, 50, 6), Spawning(
+            M//4, 50, 7), Spawning((3*M)//4, 50, 8), Spawning((2*M)//5, 50, 9)]
 
         # create huts
         self._huts = [Huts((3*M)//4, N//6), Huts(M//4, N//6), Huts(

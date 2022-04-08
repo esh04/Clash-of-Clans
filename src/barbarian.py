@@ -2,14 +2,12 @@ from .buildings import Building
 from .validation import isvalid
 from .person import Person
 from colorama import init, Fore, Back, Style
+from . import variables as v
 
 
-class Barbarian(Person):
-    def __init__(self, x_cood, y_cood):
-        damage = 5
-        health = 100
-        speed = 1
-        self._body = Fore.MAGENTA + 'B' + Fore.RESET
+class Troops(Person):
+    def __init__(self, x_cood, y_cood, damage, health, speed, body):
+        self._body = body
         Person.__init__(self, x_cood, y_cood, damage, health, speed)
 
     def get_object(self):
@@ -48,9 +46,12 @@ class Barbarian(Person):
         # print(movex, movey)
         if isvalid(self.getx() + movex, self.gety() + movey):
             if isinstance(game.get_village().get_matrix()[self.getx() + movex][self.gety() + movey], Building):
-                game.get_village().get_matrix()[
-                    self.getx() + movex][self.gety() + movey].attacked(self._attack)
-                return 1
+                # attack if not the troop is not archer
+                if (isinstance(self, Archer) == False):
+                    if game.get_village().get_matrix()[self.getx() + movex][self.gety() + movey].get_display():
+                        game.get_village().get_matrix()[
+                            self.getx() + movex][self.gety() + movey].attacked(self._attack)
+                        return 1
             elif(self.movement(movex, movey, game.get_village())):
                 return 1
         return 0
@@ -64,10 +65,52 @@ class Barbarian(Person):
         nearest_dist = 1000000
         nearest_building = None
         for building in village.get_all():
-            dist = self.distance(building)
-            if dist < nearest_dist:
-                nearest_building = building
-                nearest_dist = dist
-            # print(building.get_object(), dist,
-            #       building.getx(), building.gety())
+            if building.get_display():
+                dist = self.distance(building)
+                if dist < nearest_dist:
+                    nearest_building = building
+                    nearest_dist = dist
+                # print(building.get_object(), dist,
+                #       building.getx(), building.gety())
         return nearest_building
+
+
+class Barbarian(Troops):
+    def __init__(self, x_cood, y_cood):
+        damage = v.BARB_DAMAGE
+        health = v.BARB_HEALTH
+        speed = v.BARB_MOVT
+        body = Fore.MAGENTA + 'B' + Fore.RESET
+        Troops.__init__(self, x_cood, y_cood, damage, health, speed, body)
+
+
+class Balloon(Troops):
+    def __init__(self, x_cood, y_cood):
+        damage = v.BARB_DAMAGE*2
+        health = v.BARB_HEALTH
+        speed = v.BARB_MOVT*2
+        body = Fore.MAGENTA + 'X' + Fore.RESET
+        Troops.__init__(self, x_cood, y_cood, damage, health, speed, body)
+
+
+class Archer(Troops):
+    def __init__(self, x_cood, y_cood):
+        damage = v.BARB_DAMAGE*0.5
+        health = v.BARB_HEALTH*0.5
+        speed = v.BARB_MOVT*2
+        body = Fore.MAGENTA + 'A' + Fore.RESET
+        self._range = 6
+        Troops.__init__(self, x_cood, y_cood, damage, health, speed, body)
+
+    def shoot(self, game):
+        for i in range(-self._range, self._range + 1):
+            for j in range(-self._range, self._range + 1):
+                matrix = game.get_village().get_matrix()
+                # king = game.get_attackers().get_king()
+                if isinstance(matrix[self._x_cood + i][self._y_cood + j], Building):
+                    matrix[
+                        self._x_cood + i][self._y_cood + j].attacked(self._attack)
+                    self._body = 'A+'
+                    return True
+        self._body = 'A'
+        return False

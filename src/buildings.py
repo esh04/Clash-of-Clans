@@ -17,6 +17,9 @@ class Building():
         self._ydim = ydim
         self._object_char = str(body)
 
+    def set_char(self, char):
+        self._object_char = char
+
     def get_health_percentage(self):
         return (self._health/self._max_health) * 100
 
@@ -102,7 +105,7 @@ class Cannon(Building):
 
     def __init__(self, x_cood, y_cood):
         self._damage = 20
-        self._range = 6
+        self._range = 4
         health = 50
         body = "C"
         xdim = 1

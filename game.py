@@ -1,6 +1,6 @@
 import os
 import time
-from src.utility import barb_move, cannon_shoot, movement
+from src.utility import troop_move, check_shoot, movement
 from src.game import Game
 
 
@@ -18,9 +18,9 @@ while (not game.check_end()):
 
     if(time.time() - board_time > 2):
         board_time = time.time()
-        if barb_move(game):
+        if troop_move(game):
             print = True
-        if cannon_shoot(game):
+        if check_shoot(game):
             print = True
     if print:
         game.game_update()

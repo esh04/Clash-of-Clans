@@ -35,6 +35,10 @@ class Game:
         self._village.update_people(self._attackers.get_king())
         for barb in self._attackers.get_barbarians():
             self._village.update_people(barb)
+        for archer in self._attackers.get_archers():
+            self._village.update_people(archer)
+        for balloon in self._attackers.get_balloons():
+            self._village.update_people(balloon)
 
     def game_screen_print(self):
         os.system('clear')
@@ -50,9 +54,10 @@ class Game:
         # self._replay.append(scene)
         print(self._attackers.get_king().health_bar() + ' ' +
               str(self._attackers.get_king().get_health())+'/' + str(self._attackers.get_king().getmaxhealth()))
-        print("Press R for Rage Spell")
-        print("Press H for Heal Spell")
-        print("Press Q to quit")
+        print("Press R for Rage Spell, H for Heal Spell, Press Q to quit")
+        print("Barbarians: " + str(len(self._attackers.get_barbarians())))
+        print("Archers: " + str(len(self._attackers.get_archers())))
+        print("Balloons: " + str(len(self._attackers.get_balloons())))
 
     def check_vic(self):
         if(self._village.all_dead()):
