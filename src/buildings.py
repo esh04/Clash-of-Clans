@@ -125,3 +125,9 @@ class Cannon(Building):
 
         self._object_char = 'C'
         return False
+
+
+class WizardTower(Building):
+    def __init__(self, x_cood, y_cood):
+        body = "W"
+        # Building.__init__(self, x_cood, y_cood, health, xdim, ydim, body)

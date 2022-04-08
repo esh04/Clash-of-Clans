@@ -1,4 +1,4 @@
-from .buildings import Building
+from .buildings import Building, Wall
 from .validation import isvalid
 from .person import Person
 from colorama import init, Fore, Back, Style
@@ -74,6 +74,19 @@ class Troops(Person):
                 #       building.getx(), building.gety())
         return nearest_building
 
+    def find_nearest_defensive(self, village):
+        nearest_dist = 1000000
+        nearest_building = None
+        for building in village.get_defensive():
+            if building.get_display():
+                dist = self.distance(building)
+                if dist < nearest_dist:
+                    nearest_building = building
+                    nearest_dist = dist
+                # print(building.get_object(), dist,
+                #       building.getx(), building.gety())
+        return nearest_building
+
 
 class Barbarian(Troops):
     def __init__(self, x_cood, y_cood):
@@ -91,6 +104,42 @@ class Balloon(Troops):
         speed = v.BARB_MOVT*2
         body = Fore.MAGENTA + 'X' + Fore.RESET
         Troops.__init__(self, x_cood, y_cood, damage, health, speed, body)
+
+    def auto_move(self, game):
+        nearest_building = self.find_nearest_defensive(game.get_village())
+        if nearest_building is None:
+            nearest_building = self.find_nearerst(game.get_village())
+        # move towards the nearest building
+        x = nearest_building.gety() - self.getx()
+        y = nearest_building.getx() - self.gety()
+
+        if x > 0:
+            movex = 1
+        elif x < 0:
+            movex = -1
+        else:
+            movex = 0
+        if y > 0:
+            movey = 1
+        elif y < 0:
+            movey = -1
+        else:
+            movey = 0
+
+        if isvalid(self.getx() + movex, self.gety() + movey):
+            if isinstance(game.get_village().get_matrix()[self.getx() + movex][self.gety() + movey], Building):
+                if (isinstance(game.get_village().get_matrix()[self.getx() + movex][self.gety() + movey], Wall)):
+                    # fly over wall
+                    self.movement(2*movex, 2*movey, game.get_village())
+                    return 1
+                else:
+                    if game.get_village().get_matrix()[self.getx() + movex][self.gety() + movey].get_display():
+                        game.get_village().get_matrix()[
+                            self.getx() + movex][self.gety() + movey].attacked(self._attack)
+                        return 1
+            elif(self.movement(movex, movey, game.get_village())):
+                return 1
+        return 0
 
 
 class Archer(Troops):

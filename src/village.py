@@ -41,6 +41,8 @@ class Village:
             self._walls.extend(
                 [Wall(M//2 - 7, N//4 - i - 1), Wall(M//2 + 7, N//4 - i - 1)])
 
+        self._wizardTowers = []
+
         return
 
     def get_spawning(self):
@@ -120,4 +122,11 @@ class Village:
         buildings.extend(self._huts)
         buildings.append(self._townhall)
         buildings.extend(self._cannons)
+        buildings.extend(self._wizardTowers)
+        return buildings
+
+    def get_defensive(self):
+        buildings = []
+        buildings.extend(self._cannons)
+        buildings.extend(self._wizardTowers)
         return buildings
