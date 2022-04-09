@@ -133,6 +133,8 @@ def check_shoot(game):
     for cannon in game.get_village().get_cannons():
         # bool to check if shot is fired
         shoot = shoot or cannon.shoot(game)
+    for tower in game.get_village().get_towers():
+        shoot = shoot or tower.shoot(game)
     for archer in game.get_attackers().get_archers():
         shoot = shoot or archer.shoot(game)
     return shoot

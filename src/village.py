@@ -1,6 +1,7 @@
 import numpy as np
 from .variables import N, M
-from .buildings import TownHall, Huts, Cannon, Wall
+from .buildings import TownHall, Huts,  Wall
+from .defenseBuildings import WizardTower, Cannon
 from .spawning import Spawning
 
 
@@ -41,7 +42,8 @@ class Village:
             self._walls.extend(
                 [Wall(M//2 - 7, N//4 - i - 1), Wall(M//2 + 7, N//4 - i - 1)])
 
-        self._wizardTowers = []
+        self._wizardTowers = [WizardTower(
+            (3*M)//4, N//2 - N//10), WizardTower(M//4, N//2 - N//10)]
 
         return
 
@@ -88,6 +90,8 @@ class Village:
             self.update_matrix(cannon)
         for wall in self._walls:
             self.update_matrix(wall)
+        for tower in self._wizardTowers:
+            self.update_matrix(tower)
         return
 
     def update_people(self, person):
@@ -115,6 +119,9 @@ class Village:
         for cannon in self._cannons:
             if cannon.get_display():
                 return False
+        for tower in self._wizardTowers:
+            if tower.get_display():
+                return False
         return True
 
     def get_all(self):
@@ -130,3 +137,6 @@ class Village:
         buildings.extend(self._cannons)
         buildings.extend(self._wizardTowers)
         return buildings
+
+    def get_towers(self):
+        return self._wizardTowers

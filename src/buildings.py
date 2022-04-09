@@ -99,35 +99,3 @@ class Wall(Building):
         health = 50
         body = "W"
         Building.__init__(self, x_cood, y_cood, health, 1, 1, body)
-
-
-class Cannon(Building):
-
-    def __init__(self, x_cood, y_cood):
-        self._damage = 20
-        self._range = 4
-        health = 50
-        body = "C"
-        xdim = 1
-        ydim = 1
-        Building.__init__(self, x_cood, y_cood, health, xdim, ydim, body)
-
-    def shoot(self, game):
-        for i in range(-self._range, self._range + 1):
-            for j in range(-self._range, self._range + 1):
-                matrix = game.get_village().get_matrix()
-                # king = game.get_attackers().get_king()
-                if isinstance(matrix[self._y + i][self._x + j], Person):
-                    matrix[
-                        self._y + i][self._x + j].attacked(self._damage)
-                    self._object_char = 'C+'
-                    return True
-
-        self._object_char = 'C'
-        return False
-
-
-class WizardTower(Building):
-    def __init__(self, x_cood, y_cood):
-        body = "W"
-        # Building.__init__(self, x_cood, y_cood, health, xdim, ydim, body)
