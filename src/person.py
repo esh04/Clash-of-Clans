@@ -70,14 +70,6 @@ class Person():
                     move = True
         return move
 
-    def attack(self, village):
-        if isvalid(self._x_cood - 1, self._y_cood):
-            if village.get_matrix()[self._x_cood - 1][self._y_cood]:
-                village.get_matrix()[self._x_cood -
-                                     1][self._y_cood].attacked(self._attack)
-                return 1
-        return 0
-
     def get_health(self):
         return self._health
 

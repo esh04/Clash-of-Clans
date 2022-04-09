@@ -31,8 +31,11 @@ def movement(game):
     # moves the player
 
     char = input()
+    char = char.lower()
     if game.isQueen():
         king = game.get_attackers().get_queen()
+        if char in ['w', 'a', 's', 'd']:
+            king.set_last_moved(char)
     else:
         king = game.get_attackers().get_king()
     if char:

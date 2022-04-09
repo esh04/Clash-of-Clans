@@ -71,6 +71,7 @@ class Game:
         print("Barbarians: " + str(len(self._attackers.get_barbarians())))
         print("Archers: " + str(len(self._attackers.get_archers())))
         print("Balloons: " + str(len(self._attackers.get_balloons())))
+        # print('last moved ' + self._attackers.get_queen().get_last_moved())
 
     def check_vic(self):
         if(self._village.all_dead()):
