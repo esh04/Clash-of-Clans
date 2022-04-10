@@ -20,8 +20,8 @@ class Village:
             M//4, 50, 7), Spawning((3*M)//4, 50, 8), Spawning((2*M)//5, 50, 9)]
 
         # create huts
-        self._huts = [Huts(((M//2) + (M//8)), N//2 - N//10), Huts(
-            ((M//2) - (M//8)), N//4), Huts(((M//2) - (M//8)), N//2 - N//10), Huts(((M//2) + (M//8)), N//4), Huts(M//2, N//2 - N//10)]
+        self._huts = [Huts(((M//2) + (M//8)), N//2 - N//10), Huts(((M//2) + (M//8)), N//2 - N//8), Huts(
+            ((M//2) - (M//8)), N//4), Huts(((M//2) - (M//8)), N//2 - N//10), Huts(((M//2) + (M//8)), N//4), Huts(M//2, N//2 - N//10), Huts(((M//2) - (M//8)), N//2 - N//8), Huts(((M//2) - (M//8)), N//2 - N//7)]
 
         # create town hall
         self._townhall = TownHall(M//2, N//4)
@@ -49,12 +49,12 @@ class Village:
 
         self._wizardTowers = [WizardTower(
             M//2, N//4 + 3), WizardTower((M//2) + (M//8), N//3)]
-        if level == '2' or level == '3':
+        if level == 2 or level == 3:
             self._cannons.extend([Cannon(
                 M//2 - 12, N//2)])
             self._wizardTowers.extend([WizardTower(M//2 + 12, N//2)])
 
-        if level == '3':
+        if level == 3:
             self._wizardTowers.extend([WizardTower(
                 M//2 - M//5, N//2)])
             self._cannons.extend([Cannon(M//2 + M//5, N//2)])

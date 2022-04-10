@@ -71,6 +71,8 @@ class Game:
         print("Barbarians: " + str(len(self._attackers.get_barbarians())))
         print("Archers: " + str(len(self._attackers.get_archers())))
         print("Balloons: " + str(len(self._attackers.get_balloons())))
+        print("Levels: " + str(self._level))
+
         # print('last moved ' + self._attackers.get_queen().get_last_moved())
 
     def check_vic(self):
@@ -87,11 +89,11 @@ class Game:
 
     def check_end(self):
         if self.check_vic():
-            os.system('clear')
-            print("You Win! All buildings are destroyed.")
+            # os.system('clear')
+            # print("You Win! All buildings are destroyed.")
             return 1
         elif self.check_defeat():
-            os.system('clear')
-            print("You Lose:( All your people are dead.")
-            return 1
+            # os.system('clear')
+            # print("You Lose:( All your people are dead.")
+            return -1
         return 0
