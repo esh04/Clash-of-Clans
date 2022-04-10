@@ -4,14 +4,25 @@ from src.utility import troop_move, check_shoot, movement
 from src.game import Game
 
 # take input of choice of character
-print("Choose your character:\nPress q for Archer Queen and k for King")
-choice = input()
-if choice == 'q':
-    queen = True
-else:
-    queen = False
-print("Choose the level of the game you want to play.\nPress 1 for easy, 2 for medium and 3 for hard")
-level = input()
+
+# default values
+while(True):
+    print("Choose your character:\nPress q for Archer Queen and k for King")
+    choice = input()
+    if choice == 'q':
+        queen = True
+        break
+    elif choice == 'k':
+        queen = False
+        break
+    print("Please give a valid input")
+
+while(True):
+    print("Choose the level of the game you want to play.\nPress 1 for easy, 2 for medium and 3 for hard")
+    level = input()
+    if level in ['1', '2', '3']:
+        break
+    print("Please give a valid input")
 
 # Start time of the game
 start_time = time.time()

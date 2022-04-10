@@ -9,7 +9,7 @@ import pickle
 class Game:
     def __init__(self, time, queen, level):
         # intialise village
-        self._village = Village(v.N, v.M)
+        self._village = Village(v.N, v.M, level)
         # initalse attackers
         self._attackers = Attackers(queen)
         # intialise game over

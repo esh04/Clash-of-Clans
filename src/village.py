@@ -1,3 +1,4 @@
+from os import WIFCONTINUED
 import numpy as np
 from .variables import N, M
 from .buildings import TownHall, Huts,  Wall
@@ -6,7 +7,7 @@ from .spawning import Spawning
 
 
 class Village:
-    def __init__(self, rows, cols):
+    def __init__(self, rows, cols, level):
         '''Initialise the village'''
         self._rows = rows
         self._cols = cols
@@ -19,32 +20,44 @@ class Village:
             M//4, 50, 7), Spawning((3*M)//4, 50, 8), Spawning((2*M)//5, 50, 9)]
 
         # create huts
-        self._huts = [Huts((3*M)//4, N//6), Huts(M//4, N//6), Huts(
-            ((M//2) - (M//8)), N//4), Huts(((M//2) + (M//8)), N//4), Huts(M//2, N//2)]
+        self._huts = [Huts(((M//2) + (M//8)), N//2 - N//10), Huts(
+            ((M//2) - (M//8)), N//4), Huts(((M//2) - (M//8)), N//2 - N//10), Huts(((M//2) + (M//8)), N//4), Huts(M//2, N//2 - N//10)]
 
         # create town hall
         self._townhall = TownHall(M//2, N//4)
 
         # cannons
-        self._cannons = [Cannon(((M//2) - (M//8)), N//2 - N//10),
-                         Cannon(((M//2) + (M//8)), N//2 - N//10)]
+        self._cannons = [Cannon((M//2) - (M//8), N//3),
+                         Cannon(M//2, N//2)]
         self._walls = []
         # create walls
         for i in range(6):
-            self._walls.extend([Wall(M//2 + i+1, N//3), Wall(((M//2) - (M//8) + i+1), N // 2), Wall(((M//2) + (M//8) + i+1), N//2), Wall(M//2 + i+1, (N//2) - (N//3)), Wall(
-                (3*M)//4 + i+1, N//6 + 5), Wall(M//4 + i+1, N//6 + 5), Wall(((M//2) - (M//8) + i+1), N//4 + 5), Wall(((M//2) + (M//8) + i+1), N//4 + 5), Wall(M//2 + i+1, N//2 + 5)])
-            self._walls.extend([Wall(M//2 - i, N//3), Wall(((M//2) - (M//8) - i), N // 2), Wall(((M//2) + (M//8) - i), N//2), Wall(M//2 - i, (N//2) - (N//3)), Wall(
-                (3*M)//4 - i, N//6 + 5), Wall(M//4 - i, N//6 + 5), Wall(((M//2) - (M//8) - i), N//4 + 5), Wall(((M//2) + (M//8) - i), N//4 + 5), Wall(M//2 - i, N//2 + 5)])
+            self._walls.extend([Wall(((M//2) - (M//8) + i+1), N // 2), Wall(((M//2) + (M//8) + i+1), N//2), Wall(M//2 + i+1, (N//2) - (
+                N//3)),  Wall(((M//2) - (M//8) + i+1), N//4 - 5), Wall(((M//2) + (M//8) + i+1), N//4 - 5), Wall(M//2 + i+1, N//2 + 5)])
+            self._walls.extend([Wall(((M//2) - (M//8) - i), N // 2), Wall(((M//2) + (M//8) - i), N//2), Wall(M//2 - i, (N//2) - (
+                N//3)), Wall(((M//2) - (M//8) - i), N//4 - 5), Wall(((M//2) + (M//8) - i), N//4 - 5), Wall(M//2 - i, N//2 + 5)])
 
-        for i in range(4):
+        for i in range(22):
             self._walls.extend(
-                [Wall(M//2 - 7, N//4 + i), Wall(M//2 + 7, N//4 + i)])
-            self._walls.extend(
-                [Wall(M//2 - 7, N//4 - i - 1), Wall(M//2 + 7, N//4 - i - 1)])
+                [Wall(M//2 - 7, N//4 - 3 + i), Wall(M//2 + 7, N//4 - 3 + i)])
+
+        for i in range(20):
+            self._walls.extend([Wall(((M//2) + (M//8) + 7), N//4 - 5 + i),
+                               Wall(((M//2) + (M//8) - 6), N//4 - 5 +
+                                    i), Wall(((M//2) - (M//8) + 7), N//4 - 5 + i),
+                               Wall(((M//2) - (M//8) - 6), N//4 - 5 + i)])
 
         self._wizardTowers = [WizardTower(
-            (3*M)//4, N//2 - N//10), WizardTower(M//4, N//2 - N//10)]
+            M//2, N//4 + 3), WizardTower((M//2) + (M//8), N//3)]
+        if level == '2' or level == '3':
+            self._cannons.extend([Cannon(
+                M//2 - 12, N//2)])
+            self._wizardTowers.extend([WizardTower(M//2 + 12, N//2)])
 
+        if level == '3':
+            self._wizardTowers.extend([WizardTower(
+                M//2 - M//5, N//2)])
+            self._cannons.extend([Cannon(M//2 + M//5, N//2)])
         return
 
     def get_spawning(self):
