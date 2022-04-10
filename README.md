@@ -16,6 +16,8 @@ space: Attack
 Inside the directory run:
 `python3 game.py`
 
+To replay any game, run: `python3 replay.py <timestamp of the game you want to run from the replay directory>`
+
 ## Elements
 
 H: Hut
