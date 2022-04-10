@@ -9,7 +9,7 @@ w: Move up
 s: Mode down
 d: Move right
 space: Attack
-1,2,3: spawn troops on respective spawning region
+1,2,3,4,5,6,7,8,9: spawn troops on respective spawning region
 
 ## Execution
 
@@ -24,4 +24,12 @@ W: Wall
 C: Canon
 K: King
 B: Barbarian
-1,2,3: Spawning regions
+Spawning Regions:
+1,2,3: Barbarians
+4,5,6: Archers
+7,8,9: Balloons
+
+## Spells
+
+h: heal spell
+r: rage spell
