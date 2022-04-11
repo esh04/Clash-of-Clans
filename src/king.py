@@ -39,7 +39,7 @@ class ArcherQueen(Person):
         damage = 8
         health = 200
         speed = 2
-        self._body = Fore.YELLOW + 'Q' + Fore.RESET
+        self._body = Fore.CYAN + 'Q' + Fore.RESET
         self._lastmoved = 'w'
         Person.__init__(self, x_cood, y_cood, damage, health, speed)
 
