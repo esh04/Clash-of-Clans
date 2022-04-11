@@ -37,9 +37,9 @@ class Village:
             self._walls.extend([Wall(((M//2) - (M//8) - i), N // 2), Wall(((M//2) + (M//8) - i), N//2), Wall(M//2 - i, (N//2) - (
                 N//3)), Wall(((M//2) - (M//8) - i), N//4 - 5), Wall(((M//2) + (M//8) - i), N//4 - 5), Wall(M//2 - i, N//2 + 5)])
 
-        for i in range(22):
+        for i in range(24):
             self._walls.extend(
-                [Wall(M//2 - 7, N//4 - 3 + i), Wall(M//2 + 7, N//4 - 3 + i)])
+                [Wall(M//2 - 6, N//4 - 4 + i), Wall(M//2 + 7, N//4 - 4 + i)])
 
         for i in range(20):
             self._walls.extend([Wall(((M//2) + (M//8) + 7), N//4 - 5 + i),

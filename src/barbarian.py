@@ -159,7 +159,7 @@ class Archer(Troops):
                 if isinstance(matrix[self._x_cood + i][self._y_cood + j], Building):
                     matrix[
                         self._x_cood + i][self._y_cood + j].attacked(self._attack)
-                    self._body = 'A+'
+                    self._body = Fore.MAGENTA + 'A' + Fore.RESET
                     return True
-        self._body = 'A'
+        self._body = Fore.MAGENTA + 'A' + Fore.RESET
         return False

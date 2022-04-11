@@ -76,6 +76,8 @@ class Person():
     def attacked(self, damage):
         # decrease health by damage
         self._health -= damage
+        if self._health <= 0:
+            self._health = 0
 
     def is_dead(self):
         if self._health <= 0:

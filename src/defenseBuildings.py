@@ -20,7 +20,7 @@ class WizardTower(Building):
                 if isinstance(matrix[self._y + i][self._x + j], Person):
                     matrix[
                         self._y + i][self._x + j].attacked(self._damage)
-                    self._object_char = 'Z+'
+                    self._object_char = 'z'
                     # aoe 3x3 tiles around the troop
                     for m in range(-1, 2):
                         for n in range(-1, 2):
@@ -54,7 +54,7 @@ class Cannon(Building):
                     if isinstance(matrix[self._y + i][self._x + j], Balloon) == False:
                         matrix[
                             self._y + i][self._x + j].attacked(self._damage)
-                        self._object_char = 'C+'
+                        self._object_char = 'c'
                         return True
 
         self._object_char = 'C'
